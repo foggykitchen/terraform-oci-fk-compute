@@ -12,6 +12,8 @@ without instance pools, autoscaling, or load balancer integration.
 
 ## 🧭 Architecture Overview
 
+<img src="01_single_instance_architecture.png" width="900"/>
+
 This deployment creates:
 - A dedicated **VCN** and one **public subnet** using `terraform-oci-fk-vcn`
 - One **regular OCI compute instance**
