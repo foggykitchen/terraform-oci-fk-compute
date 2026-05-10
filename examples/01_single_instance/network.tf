@@ -29,6 +29,14 @@ module "vcn" {
             min = 22
             max = 22
           }
+        },
+        {
+          protocol = "6"
+          source   = "0.0.0.0/0"
+          tcp_options = {
+            min = 80
+            max = 80
+          }
         }
       ]
       egress_rules = [
