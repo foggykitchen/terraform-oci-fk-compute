@@ -10,15 +10,6 @@ module "vcn" {
   create_service_gateway  = true
 
   route_tables = {
-    public = {
-      route_rules = [
-        {
-          destination        = "0.0.0.0/0"
-          destination_type   = "CIDR_BLOCK"
-          network_entity_key = "internet_gateway"
-        }
-      ]
-    }
     private = {
       route_rules = [
         {
@@ -57,12 +48,6 @@ module "vcn" {
   }
 
   subnets = {
-    public_lb = {
-      display_name               = "fk-compute-public-subnet"
-      cidr_block                 = "10.50.10.0/24"
-      route_table_key            = "public"
-      prohibit_public_ip_on_vnic = false
-    }
     private_app = {
       display_name               = "fk-compute-private-subnet"
       cidr_block                 = "10.50.20.0/24"

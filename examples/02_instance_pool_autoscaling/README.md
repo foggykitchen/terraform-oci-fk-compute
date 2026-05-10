@@ -12,8 +12,10 @@ This example focuses on the **elastic compute path** in OCI:
 
 ## 🧭 Architecture Overview
 
+<img src="02_instance_pool_autoscaling_architecture.png" width="900"/>
+
 This deployment creates:
-- A dedicated **VCN** with one **public subnet** and one **private application subnet**
+- A dedicated **VCN** with one **private application subnet**
 - One **instance configuration**
 - One **instance pool**
 - One **threshold autoscaling configuration**
@@ -21,6 +23,10 @@ This deployment creates:
 
 The pool is deployed into the **private subnet**,
 while networking resources such as NAT and Service Gateway support outbound access where needed.
+
+The architecture diagram illustrates the **autoscaling pattern and target topology**.
+Depending on the current pool size and autoscaling activity,
+the number of running instances immediately after `apply` may be lower than what is shown in the diagram.
 
 ---
 
@@ -64,6 +70,38 @@ The example uses:
 - a **cloud-init** payload that starts an HTTP demo service on port `80`
 
 This makes it a clean baseline for later load balancer-backed scenarios.
+
+---
+
+## 🖼️ OCI Console And Runtime Verification
+
+### Instance Pool Status
+
+<img src="02_instance_pool_autoscaling_pool_status.png" width="900"/>
+
+This view confirms that the OCI instance pool is deployed successfully
+and has the expected initial capacity after `apply`.
+
+### Instance Configuration
+
+<img src="02_instance_pool_autoscaling_instance_configuration.png" width="900"/>
+
+This view shows the instance configuration used by the pool,
+including the launch template from which pool members are created.
+
+### Autoscaling Configuration
+
+<img src="02_instance_pool_autoscaling_autoscaling_configuration.png" width="900"/>
+
+This view confirms that the threshold-based autoscaling policy is configured
+for the instance pool and tied to the backend compute tier.
+
+### Attached Instances
+
+<img src="02_instance_pool_autoscaling_attached_instances.png" width="900"/>
+
+This view confirms that the pool members are attached and managed together
+as one autoscaled compute group.
 
 ---
 
