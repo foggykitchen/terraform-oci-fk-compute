@@ -70,6 +70,33 @@ This makes the example useful as a quick smoke test for the module.
 
 ---
 
+## 🖼️ OCI Console And Runtime Verification
+
+### Instance Status
+
+<img src="01_single_instance_instance_status.png" width="900"/>
+
+This view confirms that the compute instance is deployed successfully
+and has both private and public addressing as expected for this public-subnet example.
+
+### Network View
+
+<img src="01_single_instance_network_view.png" width="900"/>
+
+This view confirms that the instance is attached to the expected VCN and public subnet
+created by `terraform-oci-fk-vcn`.
+
+### HTTP Access
+
+<img src="01_single_instance_http_access.png" width="900"/>
+
+This runtime verification confirms that:
+- the instance is reachable over its public IP
+- the cloud-init bootstrap completed successfully
+- the demo page returns hostname, private IP, and generation timestamp
+
+---
+
 ## 🧹 Cleanup
 
 To remove all resources created by this example:
