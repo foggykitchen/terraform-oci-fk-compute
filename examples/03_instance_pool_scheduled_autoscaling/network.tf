@@ -2,23 +2,14 @@ module "vcn" {
   source = "git::https://github.com/mlinxfeld/terraform-oci-fk-vcn.git"
 
   compartment_ocid = var.compartment_ocid
-  name             = "fk-compute-scheduled-vcn"
-  vcn_cidr_blocks  = ["10.60.0.0/16"]
+  name             = "fk-compute-pool-vcn"
+  vcn_cidr_blocks  = ["10.50.0.0/16"]
 
   create_internet_gateway = true
   create_nat_gateway      = true
   create_service_gateway  = true
 
   route_tables = {
-    public = {
-      route_rules = [
-        {
-          destination        = "0.0.0.0/0"
-          destination_type   = "CIDR_BLOCK"
-          network_entity_key = "internet_gateway"
-        }
-      ]
-    }
     private = {
       route_rules = [
         {
@@ -40,7 +31,7 @@ module "vcn" {
       ingress_rules = [
         {
           protocol = "6"
-          source   = "10.60.0.0/16"
+          source   = "10.50.0.0/16"
           tcp_options = {
             min = 22
             max = 22
@@ -57,15 +48,9 @@ module "vcn" {
   }
 
   subnets = {
-    public_lb = {
-      display_name               = "fk-compute-scheduled-public-subnet"
-      cidr_block                 = "10.60.10.0/24"
-      route_table_key            = "public"
-      prohibit_public_ip_on_vnic = false
-    }
     private_app = {
-      display_name               = "fk-compute-scheduled-private-subnet"
-      cidr_block                 = "10.60.20.0/24"
+      display_name               = "fk-compute-private-subnet"
+      cidr_block                 = "10.50.20.0/24"
       route_table_key            = "private"
       security_list_keys         = ["private_app"]
       prohibit_internet_ingress  = true

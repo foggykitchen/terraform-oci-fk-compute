@@ -12,8 +12,10 @@ this example demonstrates the OCI-native scheduled scaling path using **cron exp
 
 ## 🧭 Architecture Overview
 
+<img src="03_instance_pool_scheduled_autoscaling_architecture.png" width="900"/>
+
 This deployment creates:
-- A dedicated **VCN** with one **public subnet** and one **private application subnet**
+- A dedicated **VCN** with one **private application subnet**
 - One **instance configuration**
 - One **instance pool**
 - One **scheduled autoscaling configuration**
@@ -21,6 +23,10 @@ This deployment creates:
 
 The pool is deployed into the **private subnet**,
 and scheduled scaling policies define when the pool should grow and shrink.
+
+The architecture diagram illustrates the **scheduled autoscaling pattern and target topology**.
+Depending on the current pool size and the active schedule window,
+the number of running instances immediately after `apply` may be lower than what is shown in the diagram.
 
 ---
 
@@ -64,6 +70,38 @@ The example uses:
 - a **cloud-init** payload that starts an HTTP demo service on port `80`
 
 This makes it a good reference for time-based capacity management in OCI.
+
+---
+
+## 🖼️ OCI Console And Runtime Verification
+
+### Instance Pool Status
+
+<img src="03_instance_pool_scheduled_autoscaling_pool_status.png" width="900"/>
+
+This view confirms that the OCI instance pool is deployed successfully
+and shows the current backend capacity after `apply`.
+
+### Scheduled Scale-Out Policy
+
+<img src="03_instance_pool_scheduled_autoscaling_autoscaling_configuration_scale_out.png" width="900"/>
+
+This view shows the scheduled **scale-out** policy,
+including the execution schedule used to increase capacity at the defined time.
+
+### Scheduled Scale-In Policy
+
+<img src="03_instance_pool_scheduled_autoscaling_autoscaling_configuration_scale_in.png" width="900"/>
+
+This view shows the scheduled **scale-in** policy,
+including the execution schedule used to reduce capacity at the defined time.
+
+### Attached Instances
+
+<img src="03_instance_pool_scheduled_autoscaling_attached_instances.png" width="900"/>
+
+This view confirms which compute instances are currently attached to the pool
+for the scheduled autoscaling scenario.
 
 ---
 
