@@ -75,6 +75,25 @@ resource "oci_core_instance" "this" {
   metadata          = local.merged_metadata
   extended_metadata = var.extended_metadata
 
+  dynamic "agent_config" {
+    for_each = var.agent_config == null ? [] : [var.agent_config]
+
+    content {
+      are_all_plugins_disabled = try(agent_config.value.are_all_plugins_disabled, null)
+      is_management_disabled   = try(agent_config.value.is_management_disabled, null)
+      is_monitoring_disabled   = try(agent_config.value.is_monitoring_disabled, null)
+
+      dynamic "plugins_config" {
+        for_each = try(agent_config.value.plugins_config, [])
+
+        content {
+          desired_state = plugins_config.value.desired_state
+          name          = plugins_config.value.name
+        }
+      }
+    }
+  }
+
   source_details {
     source_type             = "image"
     source_id               = local.image_id
@@ -138,6 +157,25 @@ resource "oci_core_instance_configuration" "this" {
 
       metadata          = local.merged_metadata
       extended_metadata = var.extended_metadata
+
+      dynamic "agent_config" {
+        for_each = var.agent_config == null ? [] : [var.agent_config]
+
+        content {
+          are_all_plugins_disabled = try(agent_config.value.are_all_plugins_disabled, null)
+          is_management_disabled   = try(agent_config.value.is_management_disabled, null)
+          is_monitoring_disabled   = try(agent_config.value.is_monitoring_disabled, null)
+
+          dynamic "plugins_config" {
+            for_each = try(agent_config.value.plugins_config, [])
+
+            content {
+              desired_state = plugins_config.value.desired_state
+              name          = plugins_config.value.name
+            }
+          }
+        }
+      }
 
       source_details {
         source_type             = "image"

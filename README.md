@@ -70,7 +70,7 @@ All examples are runnable and demonstrate **incremental compute patterns**, star
 
 ```hcl
 module "compute" {
-  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.1.0"
+  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
 
   name             = "fk-web-01"
   tenancy_ocid     = var.tenancy_ocid
@@ -90,11 +90,46 @@ module "compute" {
 }
 ```
 
+### Single instance with Bastion plugin enabled
+
+```hcl
+module "compute" {
+  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
+
+  name             = "fk-private-vm"
+  tenancy_ocid     = var.tenancy_ocid
+  compartment_ocid = var.compartment_ocid
+  subnet_id        = var.subnet_id
+
+  deployment_mode          = "instance"
+  shape                    = "VM.Standard.E4.Flex"
+  operating_system_version = "9"
+  shape_config = {
+    ocpus         = 1
+    memory_in_gbs = 8
+  }
+
+  ssh_authorized_keys = [file("~/.ssh/id_rsa.pub")]
+  assign_public_ip    = false
+
+  agent_config = {
+    is_management_disabled = false
+    is_monitoring_disabled = false
+    plugins_config = [
+      {
+        desired_state = "ENABLED"
+        name          = "Bastion"
+      }
+    ]
+  }
+}
+```
+
 ### Instance pool with threshold autoscaling
 
 ```hcl
 module "compute" {
-  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.1.0"
+  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
 
   name             = "fk-web-pool"
   tenancy_ocid     = var.tenancy_ocid
@@ -123,7 +158,7 @@ module "compute" {
 
 ```hcl
 module "compute" {
-  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.1.0"
+  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
 
   name             = "fk-web-pool-scheduled"
   tenancy_ocid     = var.tenancy_ocid
@@ -191,6 +226,7 @@ module "compute" {
 | `user_data` | `string` | ❌ | Base64-encoded cloud-init or user-data payload |
 | `metadata` | `map(string)` | ❌ | Additional instance metadata |
 | `extended_metadata` | `map(string)` | ❌ | OCI extended metadata |
+| `agent_config` | `object` | ❌ | Optional Oracle Cloud Agent configuration including per-plugin settings |
 
 ### Networking
 
@@ -251,6 +287,20 @@ scheduled_scale_out = object({
   min        = number
   initial    = number
   max        = number
+})
+```
+
+### Agent config object schema
+
+```hcl
+agent_config = object({
+  are_all_plugins_disabled = optional(bool)
+  is_management_disabled   = optional(bool)
+  is_monitoring_disabled   = optional(bool)
+  plugins_config = optional(list(object({
+    desired_state = string
+    name          = string
+  })), [])
 })
 ```
 

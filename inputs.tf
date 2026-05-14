@@ -111,6 +111,20 @@ variable "extended_metadata" {
   default     = {}
 }
 
+variable "agent_config" {
+  description = "Optional Oracle Cloud Agent configuration applied to the instance or instance configuration."
+  type = object({
+    are_all_plugins_disabled = optional(bool)
+    is_management_disabled   = optional(bool)
+    is_monitoring_disabled   = optional(bool)
+    plugins_config = optional(list(object({
+      desired_state = string
+      name          = string
+    })), [])
+  })
+  default = null
+}
+
 variable "source_image_id" {
   description = "Custom image OCID. When null, the module resolves the latest platform image."
   type        = string
