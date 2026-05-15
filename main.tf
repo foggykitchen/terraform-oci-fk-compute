@@ -124,6 +124,28 @@ resource "oci_load_balancer_backend" "instance" {
   weight           = 1
 }
 
+data "oci_core_vnic_attachments" "instance" {
+  count = var.deployment_mode == "instance" ? 1 : 0
+
+  compartment_id = var.compartment_ocid
+  instance_id    = oci_core_instance.this[0].id
+
+  depends_on = [oci_core_instance.this]
+}
+
+data "oci_core_vnic" "instance_primary" {
+  count = var.deployment_mode == "instance" ? 1 : 0
+
+  vnic_id = data.oci_core_vnic_attachments.instance[0].vnic_attachments[0].vnic_id
+}
+
+data "oci_core_private_ips" "instance_primary" {
+  count = var.deployment_mode == "instance" ? 1 : 0
+
+  subnet_id = var.subnet_id
+  vnic_id   = data.oci_core_vnic.instance_primary[0].id
+}
+
 resource "oci_core_instance_configuration" "this" {
   count          = var.deployment_mode == "instance_pool" ? 1 : 0
   compartment_id = var.compartment_ocid

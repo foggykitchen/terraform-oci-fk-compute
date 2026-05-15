@@ -315,6 +315,8 @@ agent_config = object({
 | `instance_id` | Single OCI instance OCID |
 | `instance_private_ip` | Private IP of the single instance |
 | `instance_public_ip` | Public IP of the single instance |
+| `primary_vnic_id` | Primary VNIC OCID of the single instance |
+| `primary_private_ip_id` | Primary private IP OCID of the single instance |
 | `instance_configuration_id` | OCI instance configuration OCID |
 | `instance_pool_id` | OCI instance pool OCID |
 | `autoscaling_configuration_id` | OCI autoscaling configuration OCID |

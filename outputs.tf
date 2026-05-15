@@ -23,6 +23,16 @@ output "instance_public_ip" {
   value       = try(oci_core_instance.this[0].public_ip, null)
 }
 
+output "primary_vnic_id" {
+  description = "Primary VNIC OCID of the single instance."
+  value       = try(data.oci_core_vnic.instance_primary[0].id, null)
+}
+
+output "primary_private_ip_id" {
+  description = "Primary private IP OCID of the single instance."
+  value       = try(data.oci_core_private_ips.instance_primary[0].private_ips[0].id, null)
+}
+
 output "instance_configuration_id" {
   description = "OCI instance configuration OCID for instance pool deployments."
   value       = try(oci_core_instance_configuration.this[0].id, null)
