@@ -359,7 +359,7 @@ This makes the module useful for:
 ## Related Modules & Training
 
 - [terraform-oci-fk-vcn](https://github.com/foggykitchen/terraform-oci-fk-vcn)
-- [terraform-oci-fk-loadbalancer](https://github.com/mlinxfeld/terraform-oci-fk-loadbalancer)
+- [terraform-oci-fk-loadbalancer](https://github.com/foggykitchen/terraform-oci-fk-loadbalancer)
 - [terraform-az-fk-compute](https://github.com/mlinxfeld/terraform-az-fk-compute)
 
 ---
