@@ -70,7 +70,7 @@ All examples are runnable and demonstrate **incremental compute patterns**, star
 
 ```hcl
 module "compute" {
-  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
+  source = "git::https://github.com/foggykitchen/terraform-oci-fk-compute.git?ref=v0.2.0"
 
   name             = "fk-web-01"
   tenancy_ocid     = var.tenancy_ocid
@@ -94,7 +94,7 @@ module "compute" {
 
 ```hcl
 module "compute" {
-  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
+  source = "git::https://github.com/foggykitchen/terraform-oci-fk-compute.git?ref=v0.2.0"
 
   name             = "fk-private-vm"
   tenancy_ocid     = var.tenancy_ocid
@@ -129,7 +129,7 @@ module "compute" {
 
 ```hcl
 module "compute" {
-  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
+  source = "git::https://github.com/foggykitchen/terraform-oci-fk-compute.git?ref=v0.2.0"
 
   name             = "fk-web-pool"
   tenancy_ocid     = var.tenancy_ocid
@@ -158,7 +158,7 @@ module "compute" {
 
 ```hcl
 module "compute" {
-  source = "git::https://github.com/mlinxfeld/terraform-oci-fk-compute.git?ref=v0.2.0"
+  source = "git::https://github.com/foggykitchen/terraform-oci-fk-compute.git?ref=v0.2.0"
 
   name             = "fk-web-pool-scheduled"
   tenancy_ocid     = var.tenancy_ocid
@@ -358,7 +358,7 @@ This makes the module useful for:
 
 ## Related Modules & Training
 
-- [terraform-oci-fk-vcn](https://github.com/mlinxfeld/terraform-oci-fk-vcn)
+- [terraform-oci-fk-vcn](https://github.com/foggykitchen/terraform-oci-fk-vcn)
 - [terraform-oci-fk-loadbalancer](https://github.com/mlinxfeld/terraform-oci-fk-loadbalancer)
 - [terraform-az-fk-compute](https://github.com/mlinxfeld/terraform-az-fk-compute)
 
