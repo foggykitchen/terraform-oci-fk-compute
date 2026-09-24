@@ -2,7 +2,7 @@
 
 This repository contains a reusable **Terraform/OpenTofu module** and progressive examples for deploying **Oracle Cloud Infrastructure (OCI) Compute** resources, from regular single instances to **instance pools with autoscaling**.
 
-It is part of the **[FoggyKitchen.com training ecosystem](https://foggykitchen.com/courses-2/)** and is designed to work cleanly with reusable infrastructure modules such as **`terraform-oci-fk-vcn`** and **`terraform-oci-fk-loadbalancer`**.
+It is part of the **[FoggyKitchen.com training ecosystem](https://foggykitchen.com/)** and is designed to work cleanly with reusable infrastructure modules such as **`terraform-oci-fk-vcn`** and **`terraform-oci-fk-loadbalancer`**.
 
 Support expectations are documented in [SUPPORT.md](SUPPORT.md).
 
