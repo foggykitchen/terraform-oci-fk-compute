@@ -1,5 +1,5 @@
 module "compute" {
-  source = "git::https://github.com/foggykitchen/terraform-oci-fk-compute.git"
+  source = "../.."
 
   name             = "fk-oci-pool-with-lb"
   tenancy_ocid     = var.tenancy_ocid
